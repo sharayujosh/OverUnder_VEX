@@ -7,6 +7,8 @@ extern controller Controller1;
 extern motor ForwardLeft;
 extern motor ForwardRight;
 extern motor Catapult;
+extern digital_out DigitalOutB;
+extern digital_out DigitalOutC;
 
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Pro.
