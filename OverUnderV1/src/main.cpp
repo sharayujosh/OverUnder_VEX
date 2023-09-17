@@ -13,12 +13,15 @@
 // Controller1          controller                    
 // ForwardLeft          motor         1               
 // ForwardRight         motor         2               
-// Catapult             motor         12              
+// CatapultMotor        motor         12              
 // DigitalOutB          digital_out   B               
 // DigitalOutC          digital_out   C               
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
 #include "vex.h"
+#include "DriverControl.h"
+#include "Flap.h"
+#include "Catapult.h"
 
 using namespace vex;
 competition Competition;
@@ -26,34 +29,33 @@ task driver;
 task sensor;
 
 
-
-void catapult(){
-  Catapult.setVelocity(100, percent);
-  Catapult.spinFor(forward, 90, degrees);
-}
-
-// void stopFlip(){
-//   Catapult.setStopping(brake);
-//   Catapult.stop();
+// void catapult(){
+//   CatapultMotor.setVelocity(100, percent);
+//   CatapultMotor.spinFor(forward, 90, degrees);
 // }
 
-void release(){
-  DigitalOutB.set(false);
-  DigitalOutC.set(false);
-}
+// void release(){
+//   DigitalOutB.set(false);
+//   DigitalOutC.set(false);
+// }
 
-void engage(){
-  DigitalOutB.set(true);
-  DigitalOutC.set(true);
-}
+// void engage(){
+//   DigitalOutB.set(true);
+//   DigitalOutC.set(true);
+// }
 
 void usercontrol(){
-  Catapult.setVelocity(-10, percent);
-  Catapult.spin(forward);
-  Controller1.ButtonA.pressed(catapult);
-  Controller1.ButtonB.pressed(release);
-  Controller1.ButtonX.pressed(engage);
+  CatapultMotor.setVelocity(-20, percent);
+  CatapultMotor.spin(forward);
+  Controller1.ButtonA.pressed(Catapult::flipCatapult);
+  Controller1.ButtonB.pressed(Flap::release);
+  Controller1.ButtonX.pressed(Flap::engage);
   //Controller1.ButtonB.pressed(stopFlip);
+
+  while (1) {
+    DriverControl::getAxisChange();
+    wait(50, msec);
+  }
 }
 
 

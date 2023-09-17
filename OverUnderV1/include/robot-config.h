@@ -6,7 +6,7 @@ extern brain Brain;
 extern controller Controller1;
 extern motor ForwardLeft;
 extern motor ForwardRight;
-extern motor Catapult;
+extern motor CatapultMotor;
 extern digital_out DigitalOutB;
 extern digital_out DigitalOutC;
 
