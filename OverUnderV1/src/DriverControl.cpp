@@ -44,7 +44,6 @@ namespace DriverControl{
   //   axis4 = axis4/turningFactor;
   //   // square axis value and divide by 100
 
-    
   //   int upDown = (abs(axis3) < deadband) ? 0:axis3*abs(axis3)/factor;
   //   int leftRight = (abs(axis4) < deadband) ? 0:axis4*abs(axis4)/factor;
   //   int turning = (abs(axis1) < deadband) ? 0:axis1*abs(axis1)/factor;

@@ -27,7 +27,4 @@ namespace DriverControl{
   ///@param axis2 value of controller axis 2
   ///@param maxVelocityPer maximum motor velocity in percent
   void combineDriveAndSpinMotionStandardDrive(int axis3, int axis4, int axis1, int axis2, float maxVelocityPer);
-
-  void turnToGoal();
-  void turnRoller();  
 }

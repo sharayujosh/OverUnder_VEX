@@ -16,6 +16,7 @@
 // CatapultMotor        motor         12              
 // DigitalOutB          digital_out   B               
 // DigitalOutC          digital_out   C               
+// Inertial             inertial      15              
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
 #include "vex.h"

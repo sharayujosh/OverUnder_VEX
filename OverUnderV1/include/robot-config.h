@@ -9,6 +9,7 @@ extern motor ForwardRight;
 extern motor CatapultMotor;
 extern digital_out DigitalOutB;
 extern digital_out DigitalOutC;
+extern inertial Inertial;
 
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Pro.

@@ -14,6 +14,7 @@ motor ForwardRight = motor(PORT2, ratio18_1, true);
 motor CatapultMotor = motor(PORT12, ratio18_1, false);
 digital_out DigitalOutB = digital_out(Brain.ThreeWirePort.B);
 digital_out DigitalOutC = digital_out(Brain.ThreeWirePort.C);
+inertial Inertial = inertial(PORT15);
 
 // VEXcode generated functions
 // define variable for remote controller enable/disable
