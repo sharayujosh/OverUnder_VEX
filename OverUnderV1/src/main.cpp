@@ -21,6 +21,7 @@
 
 #include "vex.h"
 #include "DriverControl.h"
+#include "Drivetrain.h"
 #include "Flap.h"
 #include "Catapult.h"
 
@@ -59,11 +60,17 @@ void usercontrol(){
   }
 }
 
+void prematchAuton(){
+  Drivetrain::driveForInches(12, 0, 500);
+}
+
 
 int main() {
   // Initializing Robot Configuration. DO NOT REMOVE!
   vexcodeInit();
   
+  //prematchAuton();
   Competition.drivercontrol(usercontrol);
+  Competition.autonomous(prematchAuton);
 }
 

@@ -84,6 +84,8 @@ struct PIDparameters
   /// @param timeElapsedMsec time that has gone by since beginning of action
   float getPowerOutput(float target, float actual, float timeElapsedMsec);
 
+  float getMotorOutput(float targetValue, float actualValue, float timeElapsed, float maxOut, float minOut, float kStart, float kEnd);
+
   /// @brief reset integral and derivatives back to zero
   void reset();
 
