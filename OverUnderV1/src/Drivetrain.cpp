@@ -55,4 +55,40 @@ namespace Drivetrain {
     ForwardRight.setVelocity(0, percent);
     ForwardLeft.setVelocity(0, percent);
   }
+
+  void driveForInches(float forwardDist, float timeout){
+    vex::timer motorTimer;
+    motorTimer.reset();
+
+    float targetRotation = getNrRotations(forwardDist, wheelRadiusInches);
+
+    ForwardRight.resetRotation();
+
+    ForwardRight.setVelocity(0, percent);
+    ForwardLeft.setVelocity(0, percent);
+
+    ForwardLeft.spin(forward);
+    ForwardRight.spin(forward);
+
+    float difference = targetRotation;
+
+    float deadband = 0.01;
+    float counter = 1;
+    int sleepTime = 20;
+
+    while(fabs(difference) > deadband and motorTimer.time() < timeout){
+      float actualRotation = ForwardRight.rotation(turns);
+      float velocity = getMotorOutput(targetRotation, targetRotation, 
+                sleepTime*counter, 100, 10, 5, 5);
+
+      ForwardRight.setVelocity(velocity, percent);
+      ForwardLeft.setVelocity(velocity, percent);
+
+      difference = targetRotation - actualRotation;
+      vex::task::sleep(sleepTime);
+      counter++;
+    }
+    ForwardRight.setVelocity(0, percent);
+    ForwardLeft.setVelocity(0, percent);
+  }
 }
