@@ -1,7 +1,9 @@
 #include "DriverControl.h"
-#include "vex.h"
-#include "Pid.h"
 #include "math.h"
+#include "Pid.h"
+#include "Sensors.h"
+#include "Settings.h"
+#include "vex.h"
 
 namespace DriverControl{
 
@@ -19,18 +21,17 @@ namespace DriverControl{
     int maxVel = 100;
 
     if (!(prevAxis1 == axis1 && prevAxis2 == axis2 && prevAxis3 == axis3 && prevAxis4 == axis4)){
-      // switch (Settings::drivetrainType) {
-      // case Settings::XDRIVE:
-      //   //computeRelativeMotion(axis3, axis4, axis1, axis2, maxVel);
-      //   combineDriveAndSpinMotionXDrive(axis3, axis4, axis1, axis2, maxVel);
-      //   break;
-      // case Settings::STANDARD_DRIVE:
-      //   // switched 1 and 4 
+      switch (Settings::drivetrainType) {
+      case Settings::XDRIVE:
+        //computeRelativeMotion(axis3, axis4, axis1, axis2, maxVel);
+        combineDriveAndSpinMotionXDrive(axis3, axis4, axis1, axis2, maxVel);
+        break;
+      case Settings::STANDARD_DRIVE:
+        // switched 1 and 4 
         combineDriveAndSpinMotionStandardDrive(axis3, axis1, axis4, axis2, maxVel);
-        //break;
-      //}
+        break;
+      }
     }
-
     prevAxis1 = axis1;
     prevAxis2 = axis2;
     prevAxis3 = axis3;
@@ -73,7 +74,7 @@ namespace DriverControl{
 
   // void computeRelativeMotion(int axis3, int axis4, int axis1, int axis2, float maxVelocityPer){
   //   const int deadband = 10;
-  //   float theta = M_PI/180.0*(SensorSystem::getHeadingInertial());
+  //   float theta = M_PI/180.0*(Sensors::getHeadingInertial());
 
   //   axis3 = abs(axis3) < deadband ? 0:axis3;
   //   axis4 = abs(axis4) < deadband ? 0:axis4;

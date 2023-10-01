@@ -4,10 +4,10 @@
 #include "Pid.h"
 
 namespace Drivetrain {
-  static const float wheelRadiusInches = 1.625;
+  static const float wheelRadiusInches = 2.0;
 
-  float getNrRotations(float d, float wheelRadiusIn){
-    return 0.2 * d * wheelRadiusIn;
+  float getNrRotations(float dist, float wheelRadiusIn){
+    return (dist/(wheelRadiusIn*2*M_PI));
   }
 
   float getMotorOutput(float targetValue, float actualValue, float timeElapsed, float maxOut, float minOut, float kStart, float kEnd){
@@ -61,6 +61,7 @@ namespace Drivetrain {
     motorTimer.reset();
 
     float targetRotation = getNrRotations(forwardDist, wheelRadiusInches);
+    printf("Target Rotation: %f\n", targetRotation);
 
     ForwardRight.resetRotation();
 
@@ -79,7 +80,7 @@ namespace Drivetrain {
     while(fabs(difference) > deadband and motorTimer.time() < timeout){
       float actualRotation = ForwardRight.rotation(turns);
       float velocity = getMotorOutput(targetRotation, targetRotation, 
-                sleepTime*counter, 100, 10, 5, 5);
+                sleepTime*counter, 100, 10, 100, 100);
 
       ForwardRight.setVelocity(velocity, percent);
       ForwardLeft.setVelocity(velocity, percent);
@@ -87,6 +88,7 @@ namespace Drivetrain {
       difference = targetRotation - actualRotation;
       vex::task::sleep(sleepTime);
       counter++;
+      printf("difference: %f\n", difference);
     }
     ForwardRight.setVelocity(0, percent);
     ForwardLeft.setVelocity(0, percent);

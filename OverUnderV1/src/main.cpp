@@ -61,7 +61,7 @@ void usercontrol(){
 }
 
 void prematchAuton(){
-  Drivetrain::driveForInches(12, 0, 500);
+  Drivetrain::driveForInches(12, 50000);
 }
 
 

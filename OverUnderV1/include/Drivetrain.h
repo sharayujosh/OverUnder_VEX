@@ -87,6 +87,7 @@ namespace Drivetrain {
   void driveToGPS(float xPos, float yPos, float angle, float timeInMS, bool blocking = true);
   
   void driveForInches(float forwardDist, float lateralDist, float timeInMsec);
+  void driveForInches(float forwardDist, float timeInMsec);
 
   /// @brief stop drivetrain motors
   void stop();
