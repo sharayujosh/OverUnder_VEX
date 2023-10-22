@@ -96,7 +96,7 @@ namespace DriverControl{
     // linear
     // float turning = (abs(axis4) < deadband) ? 0 : turningRatio * 100.0;
     // fourth power
-    float turning = (abs(axis4) < deadband) ? 0 : turnSign * turningRatio * turningRatio * turningRatio * turningRatio * 100.0;
+    float turning = 0.5 * ((abs(axis4) < deadband) ? 0 : turnSign * turningRatio * turningRatio * turningRatio * turningRatio * 100.0);
 
     // negatived values
     const double FRMotorVel = (upDown - turning);

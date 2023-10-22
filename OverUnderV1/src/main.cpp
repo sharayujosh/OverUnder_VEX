@@ -11,19 +11,19 @@
 // Robot Configuration:
 // [Name]               [Type]        [Port(s)]
 // Controller1          controller                    
-// ForwardLeft          motor         1               
-// ForwardRight         motor         2               
-// CatapultMotor        motor         12              
-// DigitalOutB          digital_out   B               
-// DigitalOutC          digital_out   C               
+// CatapultMotor        motor         16              
 // Inertial             inertial      15              
+// BackArm              motor         20              
+// ForwardRight         motor_group   9, 19           
+// ForwardLeft          motor_group   8, 18           
+// LimitSwitchC         limit         C               
+// Claw                 motor         6               
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
 #include "vex.h"
 #include "DriverControl.h"
 #include "Drivetrain.h"
 #include "Flap.h"
-#include "Catapult.h"
 
 using namespace vex;
 competition Competition;
@@ -31,9 +31,9 @@ task driver;
 task sensor;
 
 
-// void catapult(){
-//   CatapultMotor.setVelocity(100, percent);
-//   CatapultMotor.spinFor(forward, 90, degrees);
+// void CatapultMotorpult(){
+//   CatapultMotorpultMotor.setVelocity(100, percent);
+//   CatapultMotorpultMotor.spinFor(forward, 90, degrees);
 // }
 
 // void release(){
@@ -47,11 +47,7 @@ task sensor;
 // }
 
 void usercontrol(){
-  CatapultMotor.setVelocity(-20, percent);
-  CatapultMotor.spin(forward);
-  Controller1.ButtonA.pressed(Catapult::flipCatapult);
-  Controller1.ButtonB.pressed(Flap::release);
-  Controller1.ButtonX.pressed(Flap::engage);
+
   //Controller1.ButtonB.pressed(stopFlip);
 
   while (1) {
@@ -64,13 +60,65 @@ void prematchAuton(){
   Drivetrain::driveForInches(12, 50000);
 }
 
+void retract(){
+  CatapultMotor.setStopping(hold);
+  CatapultMotor.setVelocity(70, percent);
+  CatapultMotor.spin(forward);
+
+  while(!LimitSwitchC.pressing()){
+    wait(10, msec);
+  }
+
+  CatapultMotor.stop();
+}
+
+void release(){
+  CatapultMotor.setStopping(coast);
+  CatapultMotor.setVelocity(20, percent);
+  CatapultMotor.spin(forward);
+  wait(500, msec);
+  CatapultMotor.stop();
+}
+
+void armUp(){
+  BackArm.spin(forward);
+}
+
+void armDown(){
+  BackArm.spin(reverse);
+}
+
+void clawOut(){
+  Claw.spin(reverse);
+}
+
+void clawIn(){
+  Claw.spin(forward);
+}
 
 int main() {
-  // Initializing Robot Configuration. DO NOT REMOVE!
-  vexcodeInit();
+  BackArm.setStopping(hold);
+  Claw.setStopping(hold);
+  BackArm.setVelocity(70, percent);
+  Claw.setVelocity(70, percent);
+
+  Controller1.ButtonA.pressed(retract);
+  Controller1.ButtonB.pressed(release);
+
+  // Controller1.ButtonL1.pressed(clawOut);
+  // while(Controller1.ButtonL1.pressing()){
+  //   clawOut();
+  // }
+  // while(Controller1.ButtonL2.pressing()){
+  //   clawIn();
+  // }
+  // Controller1.ButtonL2.pressed(clawIn);
+
+  // Controller1.ButtonR1.pressed(armUp);
+  // Controller1.ButtonR2.pressed(armDown);
   
-  //prematchAuton();
-  Competition.drivercontrol(usercontrol);
-  Competition.autonomous(prematchAuton);
+  while (true) {
+    wait(10, msec);    
+  }
 }
 

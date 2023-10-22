@@ -4,12 +4,13 @@ extern brain Brain;
 
 // VEXcode devices
 extern controller Controller1;
-extern motor ForwardLeft;
-extern motor ForwardRight;
 extern motor CatapultMotor;
-extern digital_out DigitalOutB;
-extern digital_out DigitalOutC;
 extern inertial Inertial;
+extern motor BackArm;
+extern motor_group ForwardRight;
+extern motor_group ForwardLeft;
+extern limit LimitSwitchC;
+extern motor Claw;
 
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Pro.
