@@ -146,11 +146,11 @@ int main() {
   Controller1.ButtonA.pressed(retract);
   Controller1.ButtonB.pressed(release);
 
-  Controller1.ButtonL2.pressed(clawIn);
-  Controller1.ButtonL1.pressed(clawOut);
+  Controller1.ButtonL2.pressed(clawOut);
+  Controller1.ButtonL1.pressed(clawIn);
 
-  Controller1.ButtonR1.pressed(armUp);
-  Controller1.ButtonR2.pressed(armDown);
+  Controller1.ButtonR1.pressed(armDown);
+  Controller1.ButtonR2.pressed(armUp);
   
   while (true) {
     wait(10, msec);    
