@@ -79,13 +79,63 @@ namespace Drivetrain {
 
     while(fabs(difference) > deadband and motorTimer.time() < timeout){
       float actualRotation = ForwardRight.rotation(turns);
-      float velocity = getMotorOutput(targetRotation, targetRotation, 
-                sleepTime*counter, 100, 10, 100, 100);
+      float velocity = (forwardDist/fabs(forwardDist)) * getMotorOutput(fabs(difference), 0, 
+                sleepTime*counter, 100, 10, 80, 80);
 
       ForwardRight.setVelocity(velocity, percent);
       ForwardLeft.setVelocity(velocity, percent);
 
       difference = targetRotation - actualRotation;
+      vex::task::sleep(sleepTime);
+      counter++;
+      printf("difference: %f\n", difference);
+    }
+    ForwardRight.setVelocity(0, percent);
+    ForwardLeft.setVelocity(0, percent);
+  }
+
+  void turnToHeading(float headingInD, float timeInMS){
+    vex::timer motorTimer;
+    motorTimer.reset();
+
+    float targetHeading = headingInD;
+    float currentHeading = Inertial.heading();
+
+    ForwardRight.setVelocity(0, percent);
+    ForwardLeft.setVelocity(0, percent);
+
+    ForwardLeft.spin(forward);
+    ForwardRight.spin(reverse);
+
+    float difference = -(currentHeading - targetHeading);
+
+    if (fabs(difference) > 180)
+    {
+      difference = (fabs(difference) - 360) *
+                    fabs(difference) / difference;
+    }
+
+
+    float deadband = 1;
+    float counter = 1;
+    int sleepTime = 20;
+
+    while(fabs(difference) > deadband and motorTimer.time() < timeInMS){
+      currentHeading = Inertial.heading();
+      float velocity = getMotorOutput(difference, 0, 
+                sleepTime*counter, 70, 10, 0.50, 0.50);
+
+      ForwardRight.setVelocity(-velocity, percent);
+      ForwardLeft.setVelocity(velocity, percent);
+
+      difference = -(currentHeading - targetHeading);
+
+      if (fabs(difference) > 180)
+      {
+        difference = (fabs(difference) - 360) *
+                       fabs(difference) / difference;
+      }
+
       vex::task::sleep(sleepTime);
       counter++;
       printf("difference: %f\n", difference);

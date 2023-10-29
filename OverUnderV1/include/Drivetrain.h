@@ -46,7 +46,7 @@ namespace Drivetrain {
   /// @brief turn to an intertial heading
   /// @param headingInD inertial heading in degrees
   /// @param timeInMS timout in milliseconds
-  void turnToHeading(float headingInD, float timeInMS, bool blocking = true);
+  void turnToHeading(float headingInD, float timeInMS);//, bool blocking = true);
   
   void turnToFieldPoint(float fieldX, float fieldY, float timeInMS, bool blocking);
   

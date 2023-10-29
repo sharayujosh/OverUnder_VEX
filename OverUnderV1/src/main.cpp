@@ -10,14 +10,14 @@
 // ---- START VEXCODE CONFIGURED DEVICES ----
 // Robot Configuration:
 // [Name]               [Type]        [Port(s)]
-// Controller1          controller                    
 // CatapultMotor        motor         16              
-// Inertial             inertial      15              
+// Inertial             inertial      17              
 // BackArm              motor         20              
 // ForwardRight         motor_group   9, 19           
 // ForwardLeft          motor_group   8, 18           
 // LimitSwitchC         limit         C               
 // Claw                 motor         6               
+// Controller1          controller                    
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
 #include "vex.h"
@@ -62,7 +62,7 @@ void prematchAuton(){
 
 void retract(){
   CatapultMotor.setStopping(hold);
-  CatapultMotor.setVelocity(70, percent);
+  CatapultMotor.setVelocity(90, percent);
   CatapultMotor.spin(forward);
 
   while(!LimitSwitchC.pressing()){
@@ -74,29 +74,70 @@ void retract(){
 
 void release(){
   CatapultMotor.setStopping(coast);
-  CatapultMotor.setVelocity(20, percent);
+  CatapultMotor.setVelocity(30, percent);
   CatapultMotor.spin(forward);
   wait(500, msec);
   CatapultMotor.stop();
 }
 
 void armUp(){
-  BackArm.spin(forward);
+  //BackArm.spinFor(forward, 70, degrees);
+  while(Controller1.ButtonR2.pressing()){
+      BackArm.spin(forward);
+  }
+  BackArm.stop();
 }
 
 void armDown(){
-  BackArm.spin(reverse);
+  //BackArm.spinFor(reverse, 70, degrees);
+  while(Controller1.ButtonR1.pressing()){
+      BackArm.spin(reverse);
+  }
+  BackArm.stop();
 }
 
 void clawOut(){
-  Claw.spin(reverse);
+  // Claw.spin(reverse);
+  // wait(500, msec);
+  // Claw.stop();
+  while(Controller1.ButtonL2.pressing()){
+    Claw.spin(reverse);
+  }
+  Claw.stop();
+  //Claw.spinFor(reverse, 50, degrees);
 }
 
 void clawIn(){
-  Claw.spin(forward);
+  // Claw.spin(forward);
+  // wait(500, msec);
+  // Claw.stop();
+  while(Controller1.ButtonL1.pressing()){
+      Claw.spin(forward);
+  }
+  Claw.stop();
+  // Claw.spinFor(forward, 50, degrees);
+}
+
+void scoringAuton(){
+  retract();
+  Claw.spinFor(reverse, 200, degrees);
+  Drivetrain::driveForInches(44, 50000);
+  Claw.spinFor(forward, 200, degrees);
+  Drivetrain::driveForInches(-35, 50000);
+  Drivetrain::turnToHeading(300, 20000);
+  release();
+  Drivetrain::driveForInches(-52, 50000);
 }
 
 int main() {
+  Inertial.setHeading(0, degrees);
+  vex::wait(2000, msec);
+
+  // scoringAuton();
+
+  // Drivetrain::driveForInches(-12, 50000);
+  // Drivetrain::turnToHeading(90, 5000);
+
   BackArm.setStopping(hold);
   Claw.setStopping(hold);
   BackArm.setVelocity(70, percent);
@@ -105,17 +146,11 @@ int main() {
   Controller1.ButtonA.pressed(retract);
   Controller1.ButtonB.pressed(release);
 
-  // Controller1.ButtonL1.pressed(clawOut);
-  // while(Controller1.ButtonL1.pressing()){
-  //   clawOut();
-  // }
-  // while(Controller1.ButtonL2.pressing()){
-  //   clawIn();
-  // }
-  // Controller1.ButtonL2.pressed(clawIn);
+  Controller1.ButtonL2.pressed(clawIn);
+  Controller1.ButtonL1.pressed(clawOut);
 
-  // Controller1.ButtonR1.pressed(armUp);
-  // Controller1.ButtonR2.pressed(armDown);
+  Controller1.ButtonR1.pressed(armUp);
+  Controller1.ButtonR2.pressed(armDown);
   
   while (true) {
     wait(10, msec);    
