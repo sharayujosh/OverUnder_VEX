@@ -107,7 +107,7 @@ namespace Drivetrain {
     ForwardLeft.spin(forward);
     ForwardRight.spin(reverse);
 
-    float difference = -(currentHeading - targetHeading);
+    float difference = (currentHeading - targetHeading);
 
     if (fabs(difference) > 180)
     {
@@ -122,13 +122,13 @@ namespace Drivetrain {
 
     while(fabs(difference) > deadband and motorTimer.time() < timeInMS){
       currentHeading = Inertial.heading();
-      float velocity = getMotorOutput(difference, 0, 
+      float velocity = fabs(difference)/difference*getMotorOutput(fabs(difference), 0, 
                 sleepTime*counter, 70, 10, 0.50, 0.50);
 
-      ForwardRight.setVelocity(-velocity, percent);
-      ForwardLeft.setVelocity(velocity, percent);
+      ForwardRight.setVelocity(velocity, percent);
+      ForwardLeft.setVelocity(-velocity, percent);
 
-      difference = -(currentHeading - targetHeading);
+      difference = (currentHeading - targetHeading);
 
       if (fabs(difference) > 180)
       {

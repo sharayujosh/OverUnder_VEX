@@ -4,6 +4,8 @@ namespace DriverControl{
   ///@brief get the change in controller axes
   void getAxisChange();
 
+  void switchDir();
+
   ///@brief adjust drivetrain motor velocities based off change in controller axes for an XDrive
   ///@param axis3 value of controller axis 3
   ///@param axis4 value of controller axis 4

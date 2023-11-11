@@ -1,5 +1,8 @@
 #pragma once
 
 namespace Catapult{
-  void flipCatapult();
+  void retract();
+  void release();
+
+  void flipReloadCatapult(int nrTimes, float waitTimeMsec);
 }

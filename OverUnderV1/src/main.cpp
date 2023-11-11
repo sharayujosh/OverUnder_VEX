@@ -22,7 +22,9 @@
 
 #include "vex.h"
 #include "DriverControl.h"
+#include "Autonomous.h"
 #include "Drivetrain.h"
+#include "Catapult.h"
 #include "Flap.h"
 
 using namespace vex;
@@ -41,27 +43,39 @@ void usercontrol(){
 }
 
 void prematchAuton(){
-  Drivetrain::driveForInches(12, 50000);
+  Inertial.setHeading(0, degrees);
+  vex::wait(2000, msec);
+  //Drivetrain::driveForInches(12, 50000);
 }
 
-void retract(){
-  CatapultMotor.setStopping(hold);
-  CatapultMotor.setVelocity(90, percent);
-  CatapultMotor.spin(forward);
+// void retract(){
+//   CatapultMotor.setStopping(hold);
+//   CatapultMotor.setVelocity(90, percent);
+//   CatapultMotor.spin(forward);
 
-  while(!LimitSwitchC.pressing()){
-    wait(10, msec);
-  }
+//   while(!LimitSwitchC.pressing()){
+//     wait(10, msec);
+//   }
 
-  CatapultMotor.stop();
-}
-void release(){
-  CatapultMotor.setStopping(coast);
-  CatapultMotor.setVelocity(30, percent);
-  CatapultMotor.spin(forward);
-  wait(500, msec);
-  CatapultMotor.stop();
-}
+//   CatapultMotor.stop();
+// }
+// void release(){
+//   CatapultMotor.setStopping(coast);
+//   CatapultMotor.setVelocity(30, percent);
+//   CatapultMotor.spin(forward);
+//   wait(300, msec);
+//   //CatapultMotor.stop();
+
+//   CatapultMotor.setStopping(hold);
+//   CatapultMotor.setVelocity(90, percent);
+//   CatapultMotor.spin(forward);
+
+//   while(!LimitSwitchC.pressing()){
+//     wait(10, msec);
+//   }
+
+//   CatapultMotor.stop();
+// }
 
 void armUp(){
   //BackArm.spinFor(forward, 70, degrees);
@@ -101,33 +115,48 @@ void clawIn(){
   // Claw.spinFor(forward, 50, degrees);
 }
 
-void scoringAuton(){
-  retract();
-  Claw.spinFor(reverse, 200, degrees);
-  Drivetrain::driveForInches(44, 50000);
-  Claw.spinFor(forward, 200, degrees);
-  Drivetrain::driveForInches(-35, 50000);
-  Drivetrain::turnToHeading(300, 20000);
-  release();
-  Drivetrain::driveForInches(-52, 50000);
+// void scoringAuton(){
+//   retract();
+//   Claw.spinFor(reverse, 200, degrees);
+//   Drivetrain::driveForInches(44, 50000);
+//   Claw.spinFor(forward, 200, degrees);
+//   Drivetrain::driveForInches(-35, 50000);
+//   Drivetrain::turnToHeading(300, 20000);
+//   release();
+//   Drivetrain::driveForInches(-52, 50000);
+// }
+
+void automatedBeginning(){
+  Catapult::retract();
+  Drivetrain::turnToHeading(45, 20000);
+  Drivetrain::driveForInches(12, 50000);
+  Drivetrain::turnToHeading(-29, 20000);
+  Drivetrain::driveForInches(6, 50000);
+  Drivetrain::turnToHeading(-29, 20000);
+
+  Catapult::flipReloadCatapult(15, 300);
 }
 
 int main() {
-  Inertial.setHeading(0, degrees);
-  vex::wait(2000, msec);
+  
 
-  // scoringAuton();
-
+  // Autonomous::scoringAuton();
+  prematchAuton();
+  // Autonomous::autoSkills();
+  // automatedBeginning();
   // Drivetrain::driveForInches(-12, 50000);
   // Drivetrain::turnToHeading(90, 5000);
+  Autonomous::descoreAuton();
 
   BackArm.setStopping(hold);
   Claw.setStopping(hold);
-  BackArm.setVelocity(70, percent);
+  BackArm.setVelocity(100, percent);
   Claw.setVelocity(70, percent);
+  Catapult::retract();
 
-  Controller1.ButtonA.pressed(retract);
-  Controller1.ButtonB.pressed(release);
+  Controller1.ButtonA.pressed(Catapult::release);
+  //Controller1.ButtonB.pressed(release);
+  Controller1.ButtonUp.pressed(DriverControl::switchDir);
 
   Controller1.ButtonL2.pressed(clawOut);
   Controller1.ButtonL1.pressed(clawIn);
