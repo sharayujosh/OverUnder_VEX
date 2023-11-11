@@ -30,22 +30,6 @@ competition Competition;
 task driver;
 task sensor;
 
-
-// void CatapultMotorpult(){
-//   CatapultMotorpultMotor.setVelocity(100, percent);
-//   CatapultMotorpultMotor.spinFor(forward, 90, degrees);
-// }
-
-// void release(){
-//   DigitalOutB.set(false);
-//   DigitalOutC.set(false);
-// }
-
-// void engage(){
-//   DigitalOutB.set(true);
-//   DigitalOutC.set(true);
-// }
-
 void usercontrol(){
 
   //Controller1.ButtonB.pressed(stopFlip);
@@ -71,7 +55,6 @@ void retract(){
 
   CatapultMotor.stop();
 }
-
 void release(){
   CatapultMotor.setStopping(coast);
   CatapultMotor.setVelocity(30, percent);
