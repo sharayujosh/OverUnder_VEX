@@ -26,59 +26,76 @@
 #include "Drivetrain.h"
 #include "Catapult.h"
 #include "Flap.h"
+#include "Settings.h"
 
 using namespace vex;
 competition Competition;
 task driver;
 task sensor;
 
-void usercontrol(){
+Settings::ALLIANCE_TYPE Settings::alliance = Settings::ALLIANCE_TYPE::RED;
+Settings::SKILLS_TYPE Settings::skills = Settings::SKILLS_TYPE::OFF;
 
-  //Controller1.ButtonB.pressed(stopFlip);
+void drawGUI(){
+  Brain.Screen.clearScreen();
+  Brain.Screen.setFillColor(red);
+  Brain.Screen.drawRectangle(0, 0, 100, 500);
+  Brain.Screen.setFillColor(blue);
+  Brain.Screen.drawRectangle(120, 0, 100, 500);
+  Brain.Screen.setFillColor(green);
+  Brain.Screen.drawRectangle(240, 0, 500, 500);
+  Brain.Screen.setFillColor(red);
+  Brain.Screen.drawRectangle(250, 10, 80, 480);
+  Brain.Screen.setFillColor(blue);
+  Brain.Screen.drawRectangle(350, 0, 80, 480);
+}
 
-  while (1) {
-    DriverControl::getAxisChange();
-    wait(50, msec);
+void selectAlliance(){
+  int x = Brain.Screen.xPosition();
+  if (x <=120) {
+    Brain.Screen.clearScreen();
+    Brain.Screen.setFillColor(red);
+    Brain.Screen.drawRectangle(0, 0, 100, 500);
+    Settings::alliance = Settings::ALLIANCE_TYPE::RED;
+    Settings::skills = Settings::SKILLS_TYPE::OFF;
+  } else if (x <= 240) {
+    Brain.Screen.clearScreen();
+    Brain.Screen.setFillColor(green);
+    Brain.Screen.drawRectangle(0, 0, 100, 500);
+    Settings::alliance = Settings::ALLIANCE_TYPE::BLUE;
+    Settings::skills = Settings::SKILLS_TYPE::OFF;
+  } else if (x <= 345) {
+    Brain.Screen.clearScreen();
+    Brain.Screen.setFillColor(green);
+    Brain.Screen.drawRectangle(0, 0, 100, 500);
+    Brain.Screen.setFillColor(red);
+    Brain.Screen.drawRectangle(10, 10, 80, 480);
+    Settings::alliance = Settings::ALLIANCE_TYPE::RED;
+    Settings::skills = Settings::SKILLS_TYPE::ON;
+  } else if (x <= 450) {
+    Brain.Screen.clearScreen();
+    Brain.Screen.setFillColor(green);
+    Brain.Screen.drawRectangle(0, 0, 100, 500);
+    Brain.Screen.setFillColor(blue);
+    Brain.Screen.drawRectangle(10, 10, 80, 480);
+    Settings::alliance = Settings::ALLIANCE_TYPE::BLUE;
+    Settings::skills = Settings::SKILLS_TYPE::ON;
   }
+
+  Brain.Screen.setCursor(10, 10);
+  Brain.Screen.print("15 Sec Auton 1");
+
+  Brain.Screen.setCursor(240, 10);
+  Brain.Screen.print("15 Sec Auton 2");
+
+  Brain.Screen.setCursor(345, 10);
+  Brain.Screen.print("Auto Skills");
+
+  Brain.Screen.setCursor(450, 10);
+  Brain.Screen.print("Driver Skills");
 }
-
-void prematchAuton(){
-  Inertial.setHeading(0, degrees);
-  vex::wait(2000, msec);
-  //Drivetrain::driveForInches(12, 50000);
-}
-
-// void retract(){
-//   CatapultMotor.setStopping(hold);
-//   CatapultMotor.setVelocity(90, percent);
-//   CatapultMotor.spin(forward);
-
-//   while(!LimitSwitchC.pressing()){
-//     wait(10, msec);
-//   }
-
-//   CatapultMotor.stop();
-// }
-// void release(){
-//   CatapultMotor.setStopping(coast);
-//   CatapultMotor.setVelocity(30, percent);
-//   CatapultMotor.spin(forward);
-//   wait(300, msec);
-//   //CatapultMotor.stop();
-
-//   CatapultMotor.setStopping(hold);
-//   CatapultMotor.setVelocity(90, percent);
-//   CatapultMotor.spin(forward);
-
-//   while(!LimitSwitchC.pressing()){
-//     wait(10, msec);
-//   }
-
-//   CatapultMotor.stop();
-// }
 
 void armUp(){
-  //BackArm.spinFor(forward, 70, degrees);
   while(Controller1.ButtonR2.pressing()){
       BackArm.spin(forward);
   }
@@ -86,7 +103,6 @@ void armUp(){
 }
 
 void armDown(){
-  //BackArm.spinFor(reverse, 70, degrees);
   while(Controller1.ButtonR1.pressing()){
       BackArm.spin(reverse);
   }
@@ -94,37 +110,18 @@ void armDown(){
 }
 
 void clawOut(){
-  // Claw.spin(reverse);
-  // wait(500, msec);
-  // Claw.stop();
   while(Controller1.ButtonL2.pressing()){
     Claw.spin(reverse);
   }
   Claw.stop();
-  //Claw.spinFor(reverse, 50, degrees);
 }
 
 void clawIn(){
-  // Claw.spin(forward);
-  // wait(500, msec);
-  // Claw.stop();
   while(Controller1.ButtonL1.pressing()){
       Claw.spin(forward);
   }
   Claw.stop();
-  // Claw.spinFor(forward, 50, degrees);
 }
-
-// void scoringAuton(){
-//   retract();
-//   Claw.spinFor(reverse, 200, degrees);
-//   Drivetrain::driveForInches(44, 50000);
-//   Claw.spinFor(forward, 200, degrees);
-//   Drivetrain::driveForInches(-35, 50000);
-//   Drivetrain::turnToHeading(300, 20000);
-//   release();
-//   Drivetrain::driveForInches(-52, 50000);
-// }
 
 void automatedBeginning(){
   Catapult::retract();
@@ -137,17 +134,26 @@ void automatedBeginning(){
   Catapult::flipReloadCatapult(15, 300);
 }
 
-int main() {
-  
+// void usercontrol(){
 
-  // Autonomous::scoringAuton();
-  prematchAuton();
-  // Autonomous::autoSkills();
-  // automatedBeginning();
-  // Drivetrain::driveForInches(-12, 50000);
-  // Drivetrain::turnToHeading(90, 5000);
-  Autonomous::descoreAuton();
+//   while (1) {
+//     DriverControl::getAxisChange();
+//     wait(50, msec);
+//   }
+// }
 
+void pre_auton(){
+  Inertial.setHeading(0, degrees);
+  drawGUI();
+  Brain.Screen.pressed(selectAlliance);
+  vex::wait(2000, msec);
+}
+
+void autonomous(){
+  Autonomous::scoringAuton();
+}
+
+void usercontrol() {
   BackArm.setStopping(hold);
   Claw.setStopping(hold);
   BackArm.setVelocity(100, percent);
@@ -155,7 +161,7 @@ int main() {
   Catapult::retract();
 
   Controller1.ButtonA.pressed(Catapult::release);
-  //Controller1.ButtonB.pressed(release);
+  Controller1.ButtonB.pressed(Catapult::release);
   Controller1.ButtonUp.pressed(DriverControl::switchDir);
 
   Controller1.ButtonL2.pressed(clawOut);
@@ -169,3 +175,19 @@ int main() {
   }
 }
 
+int main() {
+  // Initializing Robot Configuration. DO NOT REMOVE!
+  vexcodeInit();
+  pre_auton();
+
+  //headless testing
+  //vex::wait(2000, msec);
+  //autonomous();
+  
+  Competition.autonomous(autonomous);
+  Competition.drivercontrol(usercontrol);
+
+  while (true) {
+    wait(200, msec);
+  }
+}
