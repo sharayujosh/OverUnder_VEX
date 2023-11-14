@@ -55,12 +55,8 @@ namespace Settings
   {
     NONE,
     AUTO_SKILLS,
-    AUTO_SKILLS_TWO,
-    ONE_ROLLER,
-    TWO_ROLLERS,
-    ROLLER_GOAL,
-    ROLLER_GOAL_SIDE,
-    POTENTIOMETER
+    DESCORE,
+    SCORE
   };
 
   extern ALLIANCE_TYPE alliance;
@@ -72,7 +68,7 @@ namespace Settings
   const DRIVETRAIN_TYPE drivetrainType = STANDARD_DRIVE; ///< current setting for type of drivetrain
   const TEST_TYPE testType = DRIVE_CENTER_DISC;
 
-  const AUTO_MATCH_TYPE autoMatchType = POTENTIOMETER;
+  extern AUTO_MATCH_TYPE autoMatchType; // = DESCORE;
   //const AUTO_MATCH_TYPE autoMatchType = ROLLER_GOAL_SIDE;
   //const AUTO_MATCH_TYPE autoMatchType = ROLLER_GOAL;
   //const AUTO_MATCH_TYPE autoMatchType = AUTO_SKILLS;

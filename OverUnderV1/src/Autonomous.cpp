@@ -22,12 +22,16 @@ namespace Autonomous{
     Catapult::release();
     Drivetrain::turnToHeading(42, 20000);
     Drivetrain::driveForInches(-7, 50000);
-    BackArm.spinFor(forward, 2000, degrees, false);
+    BackArm.spinFor(forward, 1000, degrees, false);
     wait(3000, msec);
-    Drivetrain::turnToHeading(-40, 20000);
+    Drivetrain::turnToHeading(-10, 20000);
+    //wait(2000, msec);
+    BackArm.stop();
+    BackArm.spinFor(forward, -1000, degrees, false);
+    Drivetrain::turnToHeading(-40, 500);
     BackArm.spinFor(reverse, 190, degrees);
     Drivetrain::turnToHeading(45, 20000);
-    Drivetrain::driveForInches(10, 50000);
+    Drivetrain::driveForInches(13, 50000);
     Drivetrain::turnToHeading(0, 20000);
     Drivetrain::driveForInches(40, 50000);
   }
