@@ -44,6 +44,8 @@ namespace Autonomous{
     Drivetrain::driveForInches(6, 50000);
     Drivetrain::turnToHeading(-29, 20000);
 
+    vex::wait(800, msec);
+
     Catapult::flipReloadCatapult(15, 300);
 
     Drivetrain::turnToHeading(310, 20000);

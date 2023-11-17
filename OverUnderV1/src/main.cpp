@@ -42,57 +42,62 @@ void drawGUI(){
   Brain.Screen.setFillColor(red);
   Brain.Screen.drawRectangle(0, 0, 100, 500);
   Brain.Screen.setFillColor(blue);
-  Brain.Screen.drawRectangle(120, 0, 100, 500);
+  Brain.Screen.drawRectangle(90, 0, 100, 500);
   Brain.Screen.setFillColor(green);
-  Brain.Screen.drawRectangle(240, 0, 500, 500);
+  Brain.Screen.drawRectangle(180, 0, 100, 500);
   Brain.Screen.setFillColor(red);
-  Brain.Screen.drawRectangle(250, 10, 80, 480);
+  Brain.Screen.drawRectangle(270, 0, 100, 500);
   Brain.Screen.setFillColor(blue);
-  Brain.Screen.drawRectangle(350, 0, 80, 480);
+  Brain.Screen.drawRectangle(360, 0, 100, 500);
 
   Brain.Screen.setCursor(4, 1);
   Brain.Screen.print("Descore");
 
-  Brain.Screen.setCursor(5, 12);
+  Brain.Screen.setCursor(5, 10);
   Brain.Screen.print("Score");
 
-  Brain.Screen.setCursor(6, 24);
+  Brain.Screen.setCursor(6, 20);
   Brain.Screen.print("Auto Skills");
 
-  Brain.Screen.setCursor(7, 36);
+  Brain.Screen.setCursor(7, 30);
   Brain.Screen.print("none");
+
+  Brain.Screen.setCursor(8, 40);
+  Brain.Screen.print("Driver Skills");
 }
 
 void selectAlliance(){
   int x = Brain.Screen.xPosition();
-  if (x <=120) {
+  if (x <=90) {
     // descore
     Brain.Screen.clearScreen();
     Brain.Screen.setFillColor(red);
     Brain.Screen.drawRectangle(0, 0, 100, 500);
     Settings::autoMatchType = Settings::AUTO_MATCH_TYPE::DESCORE;
-  } else if (x <= 240) {
+  } else if (x <= 180) {
     // score
     Brain.Screen.clearScreen();
-    Brain.Screen.setFillColor(green);
-    Brain.Screen.drawRectangle(0, 0, 100, 500);
+    Brain.Screen.setFillColor(blue);
+    Brain.Screen.drawRectangle(90, 0, 100, 500);
     Settings::autoMatchType = Settings::AUTO_MATCH_TYPE::SCORE;
-  } else if (x <= 345) {
+  } else if (x <= 270) {
     // auto skills
     Brain.Screen.clearScreen();
     Brain.Screen.setFillColor(green);
-    Brain.Screen.drawRectangle(0, 0, 100, 500);
-    Brain.Screen.setFillColor(red);
-    Brain.Screen.drawRectangle(10, 10, 80, 480);
+    Brain.Screen.drawRectangle(180, 0, 100, 500);
     Settings::autoMatchType = Settings::AUTO_MATCH_TYPE::AUTO_SKILLS;
+  } else if (x <= 360) {
+    // none
+    Brain.Screen.clearScreen();
+    Brain.Screen.setFillColor(red);
+    Brain.Screen.drawRectangle(270, 0, 100, 500);
+    Settings::autoMatchType = Settings::AUTO_MATCH_TYPE::NONE;
   } else if (x <= 450) {
     // none
     Brain.Screen.clearScreen();
-    Brain.Screen.setFillColor(green);
-    Brain.Screen.drawRectangle(0, 0, 100, 500);
     Brain.Screen.setFillColor(blue);
-    Brain.Screen.drawRectangle(10, 10, 80, 480);
-    Settings::autoMatchType = Settings::AUTO_MATCH_TYPE::NONE;
+    Brain.Screen.drawRectangle(360, 0, 100, 500);
+    Settings::autoMatchType = Settings::AUTO_MATCH_TYPE::DRIVER_SKILLS;
   }
 }
 
@@ -124,16 +129,16 @@ void clawIn(){
   Claw.stop();
 }
 
-// void automatedBeginning(){
-//   Catapult::retract();
-//   Drivetrain::turnToHeading(45, 20000);
-//   Drivetrain::driveForInches(12, 50000);
-//   Drivetrain::turnToHeading(-29, 20000);
-//   Drivetrain::driveForInches(6, 50000);
-//   Drivetrain::turnToHeading(-29, 20000);
-
-//   Catapult::flipReloadCatapult(15, 300);
-// }
+void automatedBeginning(){
+  Catapult::retract();
+  Drivetrain::turnToHeading(45, 20000);
+  Drivetrain::driveForInches(12, 50000);
+  Drivetrain::turnToHeading(-29, 20000);
+  Drivetrain::driveForInches(6, 50000);
+  Drivetrain::turnToHeading(-29, 20000);
+  vex::wait(800, msec);
+  Catapult::flipReloadCatapult(15, 300);
+}
 
 void pre_auton(){
   Inertial.setHeading(0, degrees);
@@ -160,6 +165,10 @@ void autonomous(){
 }
 
 void usercontrol() {
+  if (Settings::autoMatchType == Settings::DRIVER_SKILLS){
+    automatedBeginning();
+  }
+
   BackArm.setStopping(hold);
   Claw.setStopping(hold);
   BackArm.setVelocity(100, percent);

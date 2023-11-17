@@ -96,7 +96,7 @@ namespace DriverControl{
     const int deadband = 10;
     const float turningRatio = axis4/100.0;
     const float turnSign = axis4 / abs(axis4);
-    float upDown = ((switchedDir)?-1:1) * ((abs(axis3) < deadband) ? 0 : axis3);
+    float upDown = ((switchedDir)?1:-1) * ((abs(axis3) < deadband) ? 0 : axis3);
     // parabolic
     // float turning = (abs(axis4) < deadband) ? 0 : turnSign * (turningRatio) * (turningRatio) * 100.0;
     // linear

@@ -56,7 +56,8 @@ namespace Settings
     NONE,
     AUTO_SKILLS,
     DESCORE,
-    SCORE
+    SCORE,
+    DRIVER_SKILLS
   };
 
   extern ALLIANCE_TYPE alliance;
