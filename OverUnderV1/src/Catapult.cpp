@@ -16,13 +16,13 @@ namespace Catapult{
   }
   void release(){
     CatapultMotor.setStopping(coast);
-    CatapultMotor.setVelocity(30, percent);
+    CatapultMotor.setVelocity(100, percent); // 30
     CatapultMotor.spin(forward);
-    wait(300, msec);
+    wait(250, msec);
     //CatapultMotor.stop();
 
     CatapultMotor.setStopping(hold);
-    CatapultMotor.setVelocity(90, percent);
+    CatapultMotor.setVelocity(100, percent); // 90
     CatapultMotor.spin(forward);
 
     while(!LimitSwitchC.pressing()){
