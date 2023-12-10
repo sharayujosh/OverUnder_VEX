@@ -12,10 +12,10 @@ namespace Autonomous{
     Claw.spinFor(reverse, 200, degrees);
     Drivetrain::driveForInches(44, 50000);
     Claw.spinFor(forward, 200, degrees);
-    Drivetrain::driveForInches(-35, 50000);
-    Drivetrain::turnToHeading(300, 20000);
-    Catapult::release();
-    Drivetrain::driveForInches(-52, 50000);
+    Drivetrain::driveForInches(-39, 50000);
+    // Drivetrain::turnToHeading(245, 20000);
+    // Catapult::halfRelease();
+    // Drivetrain::driveForInches(52, 50000);
   }
 
   void descoreAuton(){
@@ -45,13 +45,13 @@ namespace Autonomous{
     Drivetrain::turnToHeading(-29, 20000);
 
     vex::wait(800, msec);
-
-    Catapult::flipReloadCatapult(15, 300);
+    // 15
+    Catapult::flipReloadCatapult(50, 300);
 
     Drivetrain::turnToHeading(310, 20000);
-    Drivetrain::driveForInches(-65, 50000);
+    Drivetrain::driveForInches(-60, 50000);
     Drivetrain::turnToHeading(0, 20000);
-    Drivetrain::driveForInches(-76, 50000);
+    Drivetrain::driveForInches(-80, 50000);
     Drivetrain::turnToHeading(0, 20000);
 
     Drivetrain::driveForInches(-36, 50000);

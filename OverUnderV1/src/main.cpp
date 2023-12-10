@@ -135,7 +135,7 @@ void automatedBeginning(){
   Drivetrain::driveForInches(12, 50000);
   Drivetrain::turnToHeading(-29, 20000);
   Drivetrain::driveForInches(6, 50000);
-  Drivetrain::turnToHeading(-29, 20000);
+  Drivetrain::turnToHeading(-27, 20000);
   vex::wait(800, msec);
   Catapult::flipReloadCatapult(15, 300);
 }
@@ -165,6 +165,10 @@ void autonomous(){
 }
 
 void usercontrol() {
+  if (Settings::autoMatchType == Settings::AUTO_SKILLS){
+    Autonomous::autoSkills();
+  }
+
   if (Settings::autoMatchType == Settings::DRIVER_SKILLS){
     automatedBeginning();
   }

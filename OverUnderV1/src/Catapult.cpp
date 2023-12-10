@@ -4,16 +4,17 @@
 namespace Catapult{
 
   void retract(){
-  CatapultMotor.setStopping(hold);
-  CatapultMotor.setVelocity(90, percent);
-  CatapultMotor.spin(forward);
+    CatapultMotor.setStopping(hold);
+    CatapultMotor.setVelocity(90, percent);
+    CatapultMotor.spin(forward);
 
-  while(!LimitSwitchC.pressing()){
-    wait(10, msec);
+    while(!LimitSwitchC.pressing()){
+      wait(10, msec);
+    }
+
+    CatapultMotor.stop();
   }
 
-  CatapultMotor.stop();
-  }
   void release(){
     CatapultMotor.setStopping(coast);
     CatapultMotor.setVelocity(30, percent);
@@ -29,6 +30,14 @@ namespace Catapult{
       wait(10, msec);
     }
 
+    CatapultMotor.stop();
+  }
+
+  void halfRelease(){
+    CatapultMotor.setStopping(coast);
+    CatapultMotor.setVelocity(30, percent);
+    CatapultMotor.spin(forward);
+    wait(300, msec);
     CatapultMotor.stop();
   }
 
