@@ -40,9 +40,9 @@ namespace Autonomous{
     Catapult::retract();
     Drivetrain::turnToHeading(45, 20000);
     Drivetrain::driveForInches(12, 50000);
-    Drivetrain::turnToHeading(-23, 20000);
+    Drivetrain::turnToHeading(-25, 20000);
     Drivetrain::driveForInches(6, 50000);
-    Drivetrain::turnToHeading(-23, 20000);
+    Drivetrain::turnToHeading(-25, 20000);
 
     vex::wait(800, msec);
     // 15
