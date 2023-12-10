@@ -5,7 +5,7 @@ namespace Catapult{
 
   void retract(){
     CatapultMotor.setStopping(hold);
-    CatapultMotor.setVelocity(90, percent);
+    CatapultMotor.setVelocity(100, percent);
     CatapultMotor.spin(forward);
 
     while(!LimitSwitchC.pressing()){

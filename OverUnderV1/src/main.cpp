@@ -137,7 +137,7 @@ void automatedBeginning(){
   Drivetrain::driveForInches(6, 50000);
   Drivetrain::turnToHeading(-27, 20000);
   vex::wait(800, msec);
-  Catapult::flipReloadCatapult(15, 300);
+  Catapult::flipReloadCatapult(15, 250);
 }
 
 void pre_auton(){

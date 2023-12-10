@@ -40,35 +40,55 @@ namespace Autonomous{
     Catapult::retract();
     Drivetrain::turnToHeading(45, 20000);
     Drivetrain::driveForInches(12, 50000);
-    Drivetrain::turnToHeading(-29, 20000);
+    Drivetrain::turnToHeading(-23, 20000);
     Drivetrain::driveForInches(6, 50000);
-    Drivetrain::turnToHeading(-29, 20000);
+    Drivetrain::turnToHeading(-23, 20000);
 
     vex::wait(800, msec);
     // 15
-    Catapult::flipReloadCatapult(50, 300);
+    Catapult::flipReloadCatapult(20, 250);
 
-    Drivetrain::turnToHeading(310, 20000);
-    Drivetrain::driveForInches(-60, 50000);
-    Drivetrain::turnToHeading(0, 20000);
-    Drivetrain::driveForInches(-80, 50000);
-    Drivetrain::turnToHeading(0, 20000);
-
-    Drivetrain::driveForInches(-36, 50000);
-    Drivetrain::driveForInches(7, 50000);
-    Drivetrain::turnToHeading(0, 20000);
-    Drivetrain::driveForInches(33, 50000);
-    Drivetrain::turnToHeading(-90, 20000);
-    Drivetrain::driveForInches(-20, 50000);
-
-    Drivetrain::turnToHeading(0, 20000);
-    Drivetrain::driveForInches(-36, 50000);
-    Drivetrain::driveForInches(40, 50000);
-    Drivetrain::turnToHeading(-90, 20000);
+    Drivetrain::driveForInches(-6, 50000);
+    Drivetrain::turnToHeading(45, 20000);
     Drivetrain::driveForInches(-15, 50000);
-
+    Drivetrain::turnToHeading(8, 20000);
+    Drivetrain::driveForInches(-55, 50000);
+    
     Drivetrain::turnToHeading(0, 20000);
-    Drivetrain::driveForInches(-40, 50000);
+
+    Drivetrain::driveForInches(-45, 50000);
+    Drivetrain::turnToHeading(55, 20000);
+    Drivetrain::driveForInches(67, 50000);
+    Drivetrain::turnToHeading(175, 20000);
+
     Drivetrain::driveForInches(40, 50000);
+
+    // Drivetrain::turnToHeading(225, 20000);
+    // Drivetrain::driveForInches(-40, 50000);
+    // Drivetrain::turnToHeading(180, 20000);
+    // Drivetrain::driveForInches(40, 50000);
+
+    // Drivetrain::turnToHeading(310, 20000);
+    // Drivetrain::driveForInches(-60, 50000);
+    // Drivetrain::turnToHeading(0, 20000);
+    // Drivetrain::driveForInches(-80, 50000);
+    // Drivetrain::turnToHeading(0, 20000);
+
+    // Drivetrain::driveForInches(-36, 50000);
+    // Drivetrain::driveForInches(7, 50000);
+    // Drivetrain::turnToHeading(0, 20000);
+    // Drivetrain::driveForInches(33, 50000);
+    // Drivetrain::turnToHeading(-90, 20000);
+    // Drivetrain::driveForInches(-20, 50000);
+
+    // Drivetrain::turnToHeading(0, 20000);
+    // Drivetrain::driveForInches(-36, 50000);
+    // Drivetrain::driveForInches(40, 50000);
+    // Drivetrain::turnToHeading(-90, 20000);
+    // Drivetrain::driveForInches(-15, 50000);
+
+    // Drivetrain::turnToHeading(0, 20000);
+    // Drivetrain::driveForInches(-40, 50000);
+    // Drivetrain::driveForInches(40, 50000);
   }
 }
