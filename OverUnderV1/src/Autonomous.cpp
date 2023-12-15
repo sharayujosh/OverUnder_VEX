@@ -9,9 +9,12 @@
 namespace Autonomous{
   void scoringAuton(){
     Catapult::retract();
-    Claw.spinFor(reverse, 200, degrees);
+    Claw.setStopping(hold);
+    Claw.spinFor(reverse, 200, degrees, false);
+    wait(500, msec);
     Drivetrain::driveForInches(44, 50000);
-    Claw.spinFor(forward, 200, degrees);
+    wait(500, msec);
+    Claw.spinFor(forward, 200, degrees, false);
     Drivetrain::driveForInches(-39, 50000);
     // Drivetrain::turnToHeading(245, 20000);
     // Catapult::halfRelease();
