@@ -49,7 +49,7 @@ namespace Autonomous{
 
     vex::wait(800, msec);
     // 15
-    Catapult::flipReloadCatapult(20, 250);
+    Catapult::flipReloadCatapult(50, 250);
 
     Drivetrain::driveForInches(-6, 50000);
     Drivetrain::turnToHeading(45, 20000);
